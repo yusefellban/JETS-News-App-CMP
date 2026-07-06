@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import jets.iti.yousef.core.network.ArticleService
 import org.jetbrains.compose.resources.painterResource
 
 import newsscope.shared.generated.resources.Res

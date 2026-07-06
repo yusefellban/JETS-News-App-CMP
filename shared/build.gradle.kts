@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import java.util.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -9,8 +10,24 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.room)
+    alias(libs.plugins.buildkonfig)
+}
+val localProperties = Properties().apply {
+    load(rootProject.file("local.properties").inputStream())
 }
 
+val newsApiKey = localProperties.getProperty("NEWS_API_KEY") ?: ""
+
+buildkonfig {
+    packageName = "jets.iti.yousef.shared"
+    defaultConfigs {
+        buildConfigField(
+            com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING,
+            "NEWS_API_KEY",
+            newsApiKey
+        )
+    }
+}
 kotlin {
     listOf(
         iosArm64(),
@@ -21,12 +38,12 @@ kotlin {
             isStatic = true
         }
     }
-    
+
     androidLibrary {
        namespace = "jets.iti.yousef.shared"
        compileSdk = libs.versions.android.compileSdk.get().toInt()
        minSdk = libs.versions.android.minSdk.get().toInt()
-    
+
        compilerOptions {
            jvmTarget = JvmTarget.JVM_11
        }
@@ -37,7 +54,7 @@ kotlin {
            isIncludeAndroidResources = true
        }
     }
-    
+
     sourceSets {
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
