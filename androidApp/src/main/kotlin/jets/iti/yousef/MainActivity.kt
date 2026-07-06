@@ -14,7 +14,7 @@ import jets.iti.yousef.core.network.httpClient
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
-    private val articleService = ArticleService(httpClient)
+    private val articleService = ArticleService()
     override fun onCreate(savedInstanceState: Bundle?) {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
