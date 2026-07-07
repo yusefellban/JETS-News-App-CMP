@@ -1,4 +1,4 @@
-package jets.iti.yousef.persentation.splash
+package jets.iti.yousef.persentation.splashSceen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 import androidx.compose.ui.tooling.preview.Preview
-import jets.iti.yousef.core.theme.NewsScopeTheme
+import jets.iti.yousef.persentation.theme.NewsScopeTheme
 
 @Composable
 fun SplashScreen() {

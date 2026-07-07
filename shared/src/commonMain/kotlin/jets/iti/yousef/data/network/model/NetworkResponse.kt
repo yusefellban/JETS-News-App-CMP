@@ -1,4 +1,4 @@
-package jets.iti.yousef.core.network.model
+package jets.iti.yousef.data.network.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

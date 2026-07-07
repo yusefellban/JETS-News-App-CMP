@@ -13,8 +13,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import jets.iti.yousef.core.theme.NewsScopeTheme
-import jets.iti.yousef.persentation.splash.SplashScreen
+import jets.iti.yousef.persentation.theme.NewsScopeTheme
+import jets.iti.yousef.persentation.splashSceen.SplashScreen
 import kotlinx.coroutines.delay
 import org.jetbrains.compose.resources.painterResource
 
