@@ -4,8 +4,8 @@ import io.ktor.client.call.body
 import io.ktor.client.request.get
 import io.ktor.client.request.parameter
 import jets.iti.yousef.data.config.AppConfig
-import jets.iti.yousef.data.network.model.NetworkArticle
-import jets.iti.yousef.data.network.model.ArticleResponse
+import jets.iti.yousef.data.article.model.NetworkArticle
+import jets.iti.yousef.data.article.model.ArticleResponse
 
 class ArticleService {
     private val url = "${AppConfig.BASE_URL}top-headlines?"
