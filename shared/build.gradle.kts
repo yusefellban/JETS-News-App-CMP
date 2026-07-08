@@ -12,11 +12,16 @@ plugins {
     alias(libs.plugins.androidx.room)
     alias(libs.plugins.buildkonfig)
 }
+val localPropertiesFile = rootProject.file("local.properties")
 val localProperties = Properties().apply {
-    load(rootProject.file("local.properties").inputStream())
+    if (localPropertiesFile.exists()) {
+        load(localPropertiesFile.inputStream())
+    }
 }
 
-val newsApiKey = localProperties.getProperty("NEWS_API_KEY") ?: ""
+val newsApiKey = localProperties.getProperty("NEWS_API_KEY")
+    ?: System.getenv("NEWS_API_KEY")
+    ?: ""
 
 buildkonfig {
     packageName = "jets.iti.yousef.shared"
@@ -62,6 +67,8 @@ kotlin {
             implementation(libs.ktor.client.okhttp)
 
             implementation(libs.koin.android)
+            implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.2")
+
         }
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -96,6 +103,14 @@ kotlin {
             // Room
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
+            //viewModel
+            implementation("androidx.lifecycle:lifecycle-viewmodel:2.11.0-beta01")
+            implementation("androidx.lifecycle:lifecycle-runtime-compose:2.11.0-beta01")
+            val compose_version = "1.0.0"
+            implementation ("androidx.compose.runtime:runtime-livedata:$compose_version")
+            //navigation
+            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha10")
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
