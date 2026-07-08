@@ -25,7 +25,7 @@ class HomeViewModel : ViewModel() {
     }
    public fun reduce(action: HomeScreenActions) {
         when (action) {
-            HomeScreenActions.allArticles -> getAllGenericArticles()
+            HomeScreenActions.AllArticles -> getAllGenericArticles()
         }
    }
 

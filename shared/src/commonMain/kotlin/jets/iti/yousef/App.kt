@@ -21,117 +21,14 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import jets.iti.yousef.domain.model.Article
 import jets.iti.yousef.persentation.homescreen.HomeViewModel
+import jets.iti.yousef.persentation.navigation.AppNavigation
 import jets.iti.yousef.persentation.theme.NewsScopeTheme
 import jets.iti.yousef.persentation.splashSceen.SplashScreen
 import kotlinx.coroutines.delay
 
 @Composable
-@Preview
 fun App() {
     NewsScopeTheme {
-
-        var isSplashScreenVisible by remember { mutableStateOf(true) }
-
-        LaunchedEffect(Unit) {
-            delay(1000)
-            isSplashScreenVisible = false
-        }
-
-        Crossfade(
-            targetState = isSplashScreenVisible,
-            animationSpec = tween(1000)
-        ) { visible ->
-
-            if (visible) {
-                SplashScreen()
-            } else {
-
-                val viewModel = remember { HomeViewModel() }
-                val state = viewModel.allGenericArticles
-
-                when {
-                    state.isLoading -> {
-                        CircularProgressIndicator()
-                    }
-
-                    state.error != null -> {
-                        Text(state.error!!)
-                    }
-
-                    else -> {
-
-                        LazyColumn(
-                            modifier = Modifier.fillMaxSize()
-                                .background(MaterialTheme.colorScheme.background)
-                            ,
-                            verticalArrangement = Arrangement.spacedBy(12.dp),
-                            contentPadding = PaddingValues(16.dp)
-
-                        ) {
-
-                            items(state.articles) { article ->
-                                ArticleCard(article)
-                            }
-
-                        }
-                    }
-                }
-
-            }
-        }
+        AppNavigation()
     }
 }
-
-@Composable
-fun ArticleCard(
-    article: Article
-) {
-    Card(
-        modifier = Modifier.fillMaxWidth()
-
-    ) {
-
-        Column {
-
-            AsyncImage(
-                model = article.imageUrl,
-                contentDescription = article.title,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(220.dp),
-                contentScale = ContentScale.Crop
-            )
-
-            Column(
-                modifier = Modifier.padding(12.dp)
-                .fillMaxWidth()
-            ) {
-
-                Text(
-                    text = article.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 2
-                    , color =  MaterialTheme.colorScheme.primary
-                )
-
-                Spacer(Modifier.height(6.dp))
-
-                Text(
-                    text = "${article.source.name ?: "Unknown"} • ${article.date}",
-                    style = MaterialTheme.typography.bodySmall
-                )
-
-                Spacer(Modifier.height(8.dp))
-
-                article.description?.let {
-                    Text(
-                        text = it,
-                        maxLines = 3,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
-        }
-    }
-}
-

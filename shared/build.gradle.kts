@@ -100,6 +100,8 @@ kotlin {
             implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.2")
             val compose_version = "1.0.0"
             implementation ("androidx.compose.runtime:runtime-livedata:$compose_version")
+            //navigation
+            implementation("org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha10")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
