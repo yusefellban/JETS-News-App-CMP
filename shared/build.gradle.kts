@@ -12,11 +12,16 @@ plugins {
     alias(libs.plugins.androidx.room)
     alias(libs.plugins.buildkonfig)
 }
+val localPropertiesFile = rootProject.file("local.properties")
 val localProperties = Properties().apply {
-    load(rootProject.file("local.properties").inputStream())
+    if (localPropertiesFile.exists()) {
+        load(localPropertiesFile.inputStream())
+    }
 }
 
-val newsApiKey = localProperties.getProperty("NEWS_API_KEY") ?: ""
+val newsApiKey = localProperties.getProperty("NEWS_API_KEY")
+    ?: System.getenv("NEWS_API_KEY")
+    ?: ""
 
 buildkonfig {
     packageName = "jets.iti.yousef.shared"
