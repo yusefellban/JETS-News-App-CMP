@@ -96,6 +96,10 @@ kotlin {
             // Room
             implementation(libs.androidx.room.runtime)
             implementation(libs.androidx.sqlite.bundled)
+            //viewModel
+            implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.2")
+            val compose_version = "1.0.0"
+            implementation ("androidx.compose.runtime:runtime-livedata:$compose_version")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
