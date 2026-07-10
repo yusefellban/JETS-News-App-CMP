@@ -22,14 +22,13 @@ import androidx.compose.ui.unit.dp
 
 import jets.iti.yousef.persentation.homescreen.component.HomeContent
 import jets.iti.yousef.persentation.homescreen.component.RotatingLogo
+import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
 fun HomeScreen() {
 
-    val viewModel = remember {
-        HomeViewModel()
-    }
+    val viewModel = koinViewModel<HomeViewModel>()
     val state = viewModel.allGenericArticles
     Box(
         modifier = Modifier

@@ -12,10 +12,9 @@ import jets.iti.yousef.persentation.homescreen.intent.HomeScreenActions
 import jets.iti.yousef.persentation.homescreen.state.AllGenericArticleState
 import kotlinx.coroutines.launch
 
-class HomeViewModel : ViewModel() {
-
-    private val getArticlesUseCase: GetAllGenericArticles =
-        GetAllGenericArticles(ArticleRepositoryImp())
+class HomeViewModel(
+    private val getArticlesUseCase: GetAllGenericArticles
+) : ViewModel() {
 
     var allGenericArticles by mutableStateOf(AllGenericArticleState())
         private set

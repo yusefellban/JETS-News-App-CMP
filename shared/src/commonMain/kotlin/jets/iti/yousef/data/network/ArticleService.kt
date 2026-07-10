@@ -6,12 +6,12 @@ import io.ktor.client.request.parameter
 import jets.iti.yousef.data.config.AppConfig
 import jets.iti.yousef.data.article.model.NetworkArticle
 import jets.iti.yousef.data.article.model.ArticleResponse
+import io.ktor.client.HttpClient
 
-class ArticleService {
+class ArticleService(private val client: HttpClient) {
     private val url = "${AppConfig.BASE_URL}top-headlines?"
     private val apiKey = AppConfig.API_KEY
     private val category = "general"
-    private val client = httpClient
 
     suspend fun fetchArticles(): ArticleResponse {
         val result = client.get(url) {

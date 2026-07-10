@@ -6,10 +6,10 @@ import jets.iti.yousef.data.network.ArticleService
 import jets.iti.yousef.domain.model.Article
 import jets.iti.yousef.domain.repository.ArticleRepository
 
-class ArticleRepositoryImp: ArticleRepository {
-    private val articleRemoteDataSource= ArticleRemoteDataSource(ArticleService())
+class ArticleRepositoryImp(
+    private val articleRemoteDataSource: ArticleRemoteDataSource
+): ArticleRepository {
     override suspend fun getAllGenericArticles(): List<Article> {
        return articleRemoteDataSource.fetchArticles().toDomain()
     }
-
 }
