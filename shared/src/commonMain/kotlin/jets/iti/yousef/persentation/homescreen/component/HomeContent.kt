@@ -8,11 +8,17 @@ import jets.iti.yousef.persentation.homescreen.state.AllGenericArticleState
 
 @Composable
 fun HomeContent(
-    state: AllGenericArticleState
+    state: AllGenericArticleState,
+    onFavoriteClick: (jets.iti.yousef.domain.model.Article, Boolean) -> Unit
 ){
     LazyColumn{
-        items(state.articles){
-            ArticleCard(it)
+        items(state.articles){ article ->
+            val isFav = state.favoriteUrls.contains(article.url)
+            ArticleCard(
+                article = article,
+                isFavorite = isFav,
+                onFavoriteClick = { onFavoriteClick(article, isFav) }
+            )
         }
     }
 

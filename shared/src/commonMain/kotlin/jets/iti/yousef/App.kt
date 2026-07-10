@@ -13,11 +13,11 @@ import org.koin.compose.KoinApplication
 
 
 
+import org.koin.compose.KoinContext
+
 @Composable
 fun App() {
-    KoinApplication(application = {
-        modules(appModule)
-    }) {
+    KoinContext {
         NewsScopeTheme {
             AppNavigation()
         }

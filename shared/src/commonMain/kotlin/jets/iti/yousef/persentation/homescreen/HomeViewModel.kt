@@ -9,11 +9,19 @@ import jets.iti.yousef.data.article.ArticleRepositoryImp
 
 import jets.iti.yousef.domain.usecase.GetAllGenericArticles
 import jets.iti.yousef.persentation.homescreen.intent.HomeScreenActions
+import jets.iti.yousef.domain.usecase.AddFavoriteArticleUseCase
+import jets.iti.yousef.domain.usecase.RemoveFavoriteArticleUseCase
+import jets.iti.yousef.domain.model.Article
 import jets.iti.yousef.persentation.homescreen.state.AllGenericArticleState
 import kotlinx.coroutines.launch
 
+import jets.iti.yousef.domain.usecase.GetFavoriteArticlesUseCase
+
 class HomeViewModel(
-    private val getArticlesUseCase: GetAllGenericArticles
+    private val getArticlesUseCase: GetAllGenericArticles,
+    private val addFavoriteArticleUseCase: AddFavoriteArticleUseCase,
+    private val removeFavoriteArticleUseCase: RemoveFavoriteArticleUseCase,
+    private val getFavoriteArticlesUseCase: GetFavoriteArticlesUseCase
 ) : ViewModel() {
 
     var allGenericArticles by mutableStateOf(AllGenericArticleState())
@@ -21,12 +29,32 @@ class HomeViewModel(
 
     init {
         getAllGenericArticles()
+        getFavorites()
+    }
+
+    private fun getFavorites() {
+        viewModelScope.launch {
+            getFavoriteArticlesUseCase().collect { favorites ->
+                val urls = favorites.map { it.url }.toSet()
+                allGenericArticles = allGenericArticles.copy(favoriteUrls = urls)
+            }
+        }
     }
    public fun reduce(action: HomeScreenActions) {
         when (action) {
-            HomeScreenActions.AllArticles -> getAllGenericArticles()
+            is HomeScreenActions.AllArticles -> getAllGenericArticles()
+            is HomeScreenActions.AddFavorite -> addFavorite(action.article)
+            is HomeScreenActions.RemoveFavorite -> removeFavorite(action.article)
         }
    }
+
+    private fun addFavorite(article: Article) {
+        viewModelScope.launch { addFavoriteArticleUseCase(article) }
+    }
+
+    private fun removeFavorite(article: Article) {
+        viewModelScope.launch { removeFavoriteArticleUseCase(article) }
+    }
 
     private fun getAllGenericArticles() {
         viewModelScope.launch {

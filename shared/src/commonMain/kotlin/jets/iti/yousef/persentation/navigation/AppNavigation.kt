@@ -27,7 +27,10 @@ fun AppNavigation(
             )
         }
         composable(NavScreen.Home.route) {
-            HomeScreen()
+            HomeScreen(onNavigateToFavorites = { navController.navigate(NavScreen.Favorites.route) })
+        }
+        composable(NavScreen.Favorites.route) {
+            jets.iti.yousef.persentation.favorites.FavoritesScreen()
         }
     }
 }

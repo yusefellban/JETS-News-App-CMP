@@ -19,6 +19,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 
 import jets.iti.yousef.persentation.homescreen.component.HomeContent
 import jets.iti.yousef.persentation.homescreen.component.RotatingLogo
@@ -26,7 +28,7 @@ import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(onNavigateToFavorites: () -> Unit = {}) {
 
     val viewModel = koinViewModel<HomeViewModel>()
     val state = viewModel.allGenericArticles
@@ -51,11 +53,30 @@ fun HomeScreen() {
             }
 
             else -> {
-                HomeContent(state)
+                HomeContent(
+                    state = state,
+                    onFavoriteClick = { article, isFavorite ->
+                        if (isFavorite) {
+                            viewModel.reduce(jets.iti.yousef.persentation.homescreen.intent.HomeScreenActions.RemoveFavorite(article))
+                        } else {
+                            viewModel.reduce(jets.iti.yousef.persentation.homescreen.intent.HomeScreenActions.AddFavorite(article))
+                        }
+                    }
+                )
             }
-
         }
-
+        
+        androidx.compose.material3.FloatingActionButton(
+            onClick = onNavigateToFavorites,
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp)
+        ) {
+            androidx.compose.material3.Icon(
+                imageVector = Icons.Filled.Favorite,
+                contentDescription = "Favorites"
+            )
+        }
     }
 
 }
