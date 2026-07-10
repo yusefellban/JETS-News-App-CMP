@@ -1,4 +1,4 @@
-package jets.iti.yousef.core.network
+package jets.iti.yousef.data.network
 
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

@@ -1,4 +1,4 @@
-package jets.iti.yousef.core.theme
+package jets.iti.yousef.persentation.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

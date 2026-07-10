@@ -1,4 +1,4 @@
-package jets.iti.yousef.core.config
+package jets.iti.yousef.data.config
 
 import jets.iti.yousef.shared.BuildKonfig
 
